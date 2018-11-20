@@ -2,11 +2,25 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
-import * as serviceWorker from './serviceWorker';
+import singleSpaReact from 'single-spa-react'
 
-ReactDOM.render(<App />, document.getElementById('root'));
+function domElementGetter() {
+	return document.getElementById('snowcap')
+}
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: http://bit.ly/CRA-PWA
-serviceWorker.unregister();
+const reactLifecycles = singleSpaReact({
+	React,
+	ReactDOM,
+	rootComponent: App,
+	domElementGetter,
+})
+
+export const bootstrap = [
+  reactLifecycles.bootstrap
+];
+export const mount = [
+  reactLifecycles.mount
+];
+export const unmount = [
+  reactLifecycles.unmount
+];
